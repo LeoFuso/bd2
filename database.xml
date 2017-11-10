@@ -37,13 +37,13 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="575" y="452" name="tb_ismf_funcionario">
+</datatypes><table x="575" y="452" name="tb_bd2_funcionario">
 <row name="id_funcionario" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="id_empresa" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="tb_ismf_empresa" row="id_empresa" />
+<default>NULL</default><relation table="tb_bd2_empresa" row="id_empresa" />
 </row>
 <row name="id_usuario" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -56,7 +56,7 @@
 <part>id_funcionario</part>
 </key>
 </table>
-<table x="272" y="333" name="tb_ismf_empresa">
+<table x="272" y="333" name="tb_bd2_empresa">
 <row name="id_empresa" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -73,13 +73,13 @@
 <part>id_empresa</part>
 </key>
 </table>
-<table x="570" y="315" name="tb_ismf_coleta">
+<table x="570" y="315" name="tb_bd2_coleta">
 <row name="id_coleta" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="id_empresa" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="tb_ismf_empresa" row="id_empresa" />
+<default>NULL</default><relation table="tb_bd2_empresa" row="id_empresa" />
 </row>
 <row name="dt_submissao" null="1" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
@@ -88,7 +88,7 @@
 <part>id_coleta</part>
 </key>
 </table>
-<table x="1129" y="355" name="tb_ismf_categoria">
+<table x="1129" y="355" name="tb_bd2_categoria">
 <row name="id_categoria" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -97,7 +97,7 @@
 <default>NULL</default></row>
 <row name="id_role" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="tb_ismf_role" row="id_role" />
+<default>NULL</default><relation table="tb_bd2_role" row="id_role" />
 </row>
 <row name="ds_nome" null="1" autoincrement="0">
 <datatype>VARCHAR(255)</datatype>
@@ -106,26 +106,29 @@
 <part>id_categoria</part>
 </key>
 </table>
-<table x="865" y="326" name="tb_ismf_pergunta">
+<table x="865" y="320" name="tb_bd2_pergunta">
 <row name="id_pergunta" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="id_coleta" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="tb_ismf_coleta" row="id_coleta" />
+<default>NULL</default><relation table="tb_bd2_coleta" row="id_coleta" />
 </row>
 <row name="id_funcionario" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="tb_ismf_funcionario" row="id_funcionario" />
+<default>NULL</default><relation table="tb_bd2_funcionario" row="id_funcionario" />
 </row>
 <row name="id_categoria" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="tb_ismf_categoria" row="id_categoria" />
+<default>NULL</default><relation table="tb_bd2_categoria" row="id_categoria" />
 </row>
 <row name="dt_cadastro" null="1" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 <default>NULL</default></row>
 <row name="ds_tipo_pergunta" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="ds_corpo_pergunta" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
@@ -134,19 +137,19 @@
 <key type="INDEX" name="">
 </key>
 </table>
-<table x="261" y="493" name="tb_ismf_setor_empresa">
+<table x="261" y="493" name="tb_bd2_setor_empresa">
 <row name="id_setor" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="tb_ismf_setor" row="id_setor" />
+<default>NULL</default><relation table="tb_bd2_setor" row="id_setor" />
 </row>
 <row name="id_empresa" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="tb_ismf_empresa" row="id_empresa" />
+<default>NULL</default><relation table="tb_bd2_empresa" row="id_empresa" />
 </row>
 <key type="PRIMARY" name="">
 </key>
 </table>
-<table x="282" y="606" name="tb_ismf_setor">
+<table x="282" y="606" name="tb_bd2_setor">
 <row name="id_setor" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -183,7 +186,7 @@
 <part>id_usuario</part>
 </key>
 </table>
-<table x="1149" y="606" name="tb_ismf_role">
+<table x="1149" y="606" name="tb_bd2_role">
 <row name="id_role" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -197,10 +200,10 @@
 <part>id_role</part>
 </key>
 </table>
-<table x="830" y="609" name="tb_ismf_permissao">
+<table x="830" y="609" name="tb_bd2_permissao">
 <row name="id_role" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="tb_ismf_role" row="id_role" />
+<default>NULL</default><relation table="tb_bd2_role" row="id_role" />
 </row>
 <row name="id_usuario" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
