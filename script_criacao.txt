@@ -108,3 +108,29 @@ VALUES (1014, 'MoonInc  ','04271513000198');
 INSERT
 INTO tb_bd2_empresa (id_empresa, ds_nome, ds_cnpj)
 VALUES (1015, 'StepFoward  ','66450106000103');
+
+-- Tabela Setor_Empresa
+
+INSERT
+INTO tb_bd2_setor_empresa (id_setor, id_empresa)
+VALUES (1011,103);
+
+
+INSERT
+INTO tb_bd2_setor_empresa (id_setor, id_empresa)
+VALUES (1012,105);
+
+
+INSERT
+INTO tb_bd2_setor_empresa (id_setor, id_empresa)
+VALUES (1013,104);
+
+
+INSERT
+INTO tb_bd2_setor_empresa (id_setor, id_empresa)
+VALUES (1014,103);
+
+
+INSERT
+INTO tb_bd2_setor_empresa (id_setor, id_empresa)
+VALUES (1015,105);
