@@ -159,3 +159,27 @@ VALUES (114,0,'Social');
 INSERT
 INTO tb_bd2_categoria (id_categoria, id_pertence_categoria, ds_nome)
 VALUES (115,0,'Ambiental');
+
+
+
+-- Tabela Funcionario
+
+INSERT
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, id_superior_funcionario, ds_nome, ds_cpf, ds_email)
+VALUES (31,101,0, 'Leonardo Fuso', '55531155077', 'leonardo@hotmail.com');
+
+INSERT
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, id_superior_funcionario, ds_nome, ds_cpf, ds_email)
+VALUES (32,101,31, 'Lucas Tormin', '70630113084', 'lucas@hotmail.com');
+
+INSERT
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, id_superior_funcionario, ds_nome, ds_cpf, ds_email)
+VALUES (33,102,0, 'Rodrigo Lima', '99796378035', 'rrl@hotmail.com');
+
+INSERT
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, id_superior_funcionario, ds_nome, ds_cpf, ds_email)
+VALUES (34,102,33, 'João Silva', '43545036030', 'jsilva@hotmail.com');
+
+INSERT
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, id_superior_funcionario, ds_nome, ds_cpf, ds_email)
+VALUES (35,103,0, 'Paulo Costa', '77280327044', 'costa@hotmail.com');
