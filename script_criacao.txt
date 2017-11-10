@@ -62,3 +62,49 @@ Foreign key (id_funcionario) References tb_bd2_funcionario (id_funcionario),
 Foreign key (id_categoria) References tb_bd2_categoria (id_categoria),
 Primary key(id_pergunta));
 
+
+-- Inserts
+
+-- Tabela Setores
+
+INSERT
+INTO tb_bd2_setor (id_setor, ds_nome_area_atuacao)
+VALUES (101, 'Agronegocio');
+
+INSERT
+INTO tb_bd2_setor (id_setor, ds_nome_area_atuacao)
+VALUES (102, 'Comercio');
+
+INSERT
+INTO tb_bd2_setor (id_setor, ds_nome_area_atuacao)
+VALUES (103, 'Investimento');
+
+INSERT
+INTO tb_bd2_setor (id_setor, ds_nome_area_atuacao)
+VALUES (104, 'Educacao');
+
+INTO tb_bd2_setor (id_setor, ds_nome_area_atuacao)
+VALUES (105, 'Exportacao');
+
+-- Tabela Empresas
+
+INSERT
+INTO tb_bd2_empresa (id_empresa, ds_nome, ds_cnpj)
+VALUES (1011, 'SilverLight','82684742000148');
+
+INSERT
+INTO tb_bd2_empresa (id_empresa, ds_nome, ds_cnpj)
+VALUES (1012, 'Adobe','35186316000102');
+
+INSERT
+INTO tb_bd2_empresa (id_empresa, ds_nome, ds_cnpj)
+VALUES (1013, 'MicroSystem','10170121000135');
+
+
+INSERT
+INTO tb_bd2_empresa (id_empresa, ds_nome, ds_cnpj)
+VALUES (1014, 'MoonInc  ','04271513000198');
+
+INSERT
+INTO tb_bd2_empresa (id_empresa, ds_nome, ds_cnpj)
+VALUES (1015, 'StepFoward  ','66450106000103');
