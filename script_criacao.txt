@@ -183,3 +183,10 @@ VALUES (34,102,33, 'João Silva', '43545036030', 'jsilva@hotmail.com');
 INSERT
 INTO tb_bd2_funcionario (id_funcionario, id_empresa, id_superior_funcionario, ds_nome, ds_cpf, ds_email)
 VALUES (35,103,0, 'Paulo Costa', '77280327044', 'costa@hotmail.com');
+
+
+
+
+-- Tabela Pergunta
+
+-- Faz alguma coisa ae Lucas
