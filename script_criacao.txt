@@ -1,0 +1,54 @@
+
+-- Script de criacao do banco
+
+
+create table tb_bd2_empresa (
+id_empresa integer,
+ds_nome varchar(30),
+ds_cnpj varchar(14),
+Primary key(id_empresa));
+
+
+create table tb_bd2_setor (
+id_setor integer,
+ds_nome_area_atuacao varchar(30),
+Primary key(id_setor));
+
+
+create table tb_bd2_setor_empresa(
+id_setor integer,
+id_empresa integer,
+Foreign key (id_setor) References tb_bd2_setor (id_setor),
+Foreign key (id_empresa) References tb_bd2_empresa (id_empresa));
+
+
+create table tb_bd2_funcionario (
+id_funcionario integer,
+id_empresa integer,
+id_superior_funcionario integer,
+ds_nome varchar(30),
+ds_cpf varchar(11),
+ds_email varchar(200),
+Foreign key (id_empresa) References tb_bd2_empresa (id_empresa),
+Foreign key (id_superior_funcionario) References tb_bd2_funcionario (id_funcionario),
+Primary key(id_funcionario));
+
+
+create table tb_bd2_categoria(
+id_categoria integer,
+id_pertence_categoria integer,
+ds_nome varchar(30),
+Foreign key (id_pertence_categoria) References tb_bd2_categoria (id_categoria),
+Primary key(id_empresa));
+
+
+create table tb_bd2_pergunta (
+id_pergunta integer,
+id_funcionario integer,
+id_categoria integer,
+ds_tipo_pergunta varchar(30),
+ds_corpo_pergunta varchar(255),
+Foreign key (id_funcionario) References tb_bd2_funcionario (id_funcionario),
+Foreign key (id_categoria) References tb_bd2_categoria (id_categoria),
+Primary key(id_pergunta));
+
