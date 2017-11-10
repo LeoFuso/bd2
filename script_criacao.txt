@@ -1,4 +1,14 @@
 
+-- Drop Tables
+
+DROP TABLE tb_bd2_pergunta CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_categoria CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_funcionario CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_setor_empresa CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_setor CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_empresa CASCADE CONSTRAINT;
+
+
 -- Script de criacao do banco
 
 
