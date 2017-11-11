@@ -14,29 +14,30 @@ DROP TABLE tb_bd2_empresa CASCADE CONSTRAINT;
 
 create table tb_bd2_empresa (
 id_empresa integer,
-ds_nome varchar(30),
+ds_nome varchar(60),
 ds_cnpj varchar(14),
 Primary key(id_empresa));
 
 
 create table tb_bd2_setor (
 id_setor integer,
-ds_nome_area_atuacao varchar(30),
+ds_nome_area_atuacao varchar(60),
 Primary key(id_setor));
 
 
 create table tb_bd2_setor_empresa(
 id_setor integer,
 id_empresa integer,
-Foreign key (id_setor) References tb_bd2_setor (id_setor),
-Foreign key (id_empresa) References tb_bd2_empresa (id_empresa));
+Constraint SETOR_FK Foreign key (id_setor) References tb_bd2_setor (id_setor),
+Constraint EMPRESA_FK Foreign key (id_empresa) References tb_bd2_empresa (id_empresa),
+Constraint tb_PK PRIMARY KEY(id_setor,id_empresa));
 
 
 create table tb_bd2_funcionario (
 id_funcionario integer,
 id_empresa integer,
 id_superior_funcionario integer,
-ds_nome varchar(30),
+ds_nome varchar(60),
 ds_cpf varchar(11),
 ds_email varchar(200),
 Foreign key (id_empresa) References tb_bd2_empresa (id_empresa),
@@ -47,7 +48,7 @@ Primary key(id_funcionario));
 create table tb_bd2_categoria(
 id_categoria integer,
 id_pertence_categoria integer,
-ds_nome varchar(30),
+ds_nome varchar(60),
 Foreign key (id_pertence_categoria) References tb_bd2_categoria (id_categoria),
 Primary key(id_categoria));
 
@@ -56,7 +57,7 @@ create table tb_bd2_pergunta (
 id_pergunta integer,
 id_funcionario integer,
 id_categoria integer,
-ds_tipo_pergunta varchar(30),
+ds_tipo_pergunta varchar(60),
 ds_corpo_pergunta varchar(255),
 Foreign key (id_funcionario) References tb_bd2_funcionario (id_funcionario),
 Foreign key (id_categoria) References tb_bd2_categoria (id_categoria),
@@ -85,6 +86,7 @@ INSERT
 INTO tb_bd2_setor (id_setor, ds_nome_area_atuacao)
 VALUES (104, 'Educacao');
 
+INSERT
 INTO tb_bd2_setor (id_setor, ds_nome_area_atuacao)
 VALUES (105, 'Exportacao');
 
@@ -118,31 +120,31 @@ VALUES (1015, 'StepFoward  ','66450106000103');
 
 INSERT
 INTO tb_bd2_setor_empresa (id_setor, id_empresa)
-VALUES (1011,103);
+VALUES (103,1011);
 
 INSERT
 INTO tb_bd2_setor_empresa (id_setor, id_empresa)
-VALUES (1012,105);
+VALUES (105,1012);
 
 INSERT
 INTO tb_bd2_setor_empresa (id_setor, id_empresa)
-VALUES (1013,104);
+VALUES (104,1013);
 
 INSERT
 INTO tb_bd2_setor_empresa (id_setor, id_empresa)
-VALUES (1014,103);
+VALUES (103,1014);
 
 INSERT
 INTO tb_bd2_setor_empresa (id_setor, id_empresa)
-VALUES (1015,105);
+VALUES (105,1015);
 
 
 
 -- Tabela Categoria
 
 INSERT
-INTO tb_bd2_categoria (id_categoria, id_pertence_categoria, ds_nome)
-VALUES (111,0,'Economia');
+INTO tb_bd2_categoria (id_categoria, ds_nome)
+VALUES (111,'Economia');
 
 INSERT
 INTO tb_bd2_categoria (id_categoria, id_pertence_categoria, ds_nome)
@@ -153,36 +155,36 @@ INTO tb_bd2_categoria (id_categoria, id_pertence_categoria, ds_nome)
 VALUES (113,111,'Custos');
 
 INSERT
-INTO tb_bd2_categoria (id_categoria, id_pertence_categoria, ds_nome)
-VALUES (114,0,'Social');
+INTO tb_bd2_categoria (id_categoria, ds_nome)
+VALUES (114,'Social');
 
 INSERT
-INTO tb_bd2_categoria (id_categoria, id_pertence_categoria, ds_nome)
-VALUES (115,0,'Ambiental');
+INTO tb_bd2_categoria (id_categoria, ds_nome)
+VALUES (115,'Ambiental');
 
 
 
 -- Tabela Funcionario
 
 INSERT
-INTO tb_bd2_funcionario (id_funcionario, id_empresa, id_superior_funcionario, ds_nome, ds_cpf, ds_email)
-VALUES (31,101,0, 'Leonardo Fuso', '55531155077', 'leonardo@hotmail.com');
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, ds_nome, ds_cpf, ds_email)
+VALUES (31,1011, 'Leonardo Fuso', '55531155077', 'leonardo@hotmail.com');
 
 INSERT
 INTO tb_bd2_funcionario (id_funcionario, id_empresa, id_superior_funcionario, ds_nome, ds_cpf, ds_email)
-VALUES (32,101,31, 'Lucas Tormin', '70630113084', 'lucas@hotmail.com');
+VALUES (32,1011,31, 'Lucas Tormin', '70630113084', 'lucas@hotmail.com');
+
+INSERT
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, ds_nome, ds_cpf, ds_email)
+VALUES (33,1012,'Rodrigo Lima', '99796378035', 'rrl@hotmail.com');
 
 INSERT
 INTO tb_bd2_funcionario (id_funcionario, id_empresa, id_superior_funcionario, ds_nome, ds_cpf, ds_email)
-VALUES (33,102,0, 'Rodrigo Lima', '99796378035', 'rrl@hotmail.com');
+VALUES (34,1012,33, 'João Silva', '43545036030', 'jsilva@hotmail.com');
 
 INSERT
-INTO tb_bd2_funcionario (id_funcionario, id_empresa, id_superior_funcionario, ds_nome, ds_cpf, ds_email)
-VALUES (34,102,33, 'João Silva', '43545036030', 'jsilva@hotmail.com');
-
-INSERT
-INTO tb_bd2_funcionario (id_funcionario, id_empresa, id_superior_funcionario, ds_nome, ds_cpf, ds_email)
-VALUES (35,103,0, 'Paulo Costa', '77280327044', 'costa@hotmail.com');
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, ds_nome, ds_cpf, ds_email)
+VALUES (35,1013,'Paulo Costa', '77280327044', 'costa@hotmail.com');
 
 
 
@@ -191,24 +193,20 @@ VALUES (35,103,0, 'Paulo Costa', '77280327044', 'costa@hotmail.com');
 
 INSERT
 INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
-VALUES (101, 31, 112, "DISCURSIVA", "Qual é o lucro médio anual?");
+VALUES (101, 31, 112, 'DISCURSIVA', 'Qual é o lucro médio anual?');
 
 INSERT
 INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
-VALUES (102, 32, 113, "DISCURSIVA", "Onde está o maior custo atualmente?");
+VALUES (102, 32, 113, 'DISCURSIVA', 'Onde está o maior custo atualmente?');
 
 INSERT
 INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
-VALUES (103, 33, 114, "LIKERT", "Os serviços sociais estão:");
+VALUES (103, 33, 114, 'LIKERT', 'Os serviços sociais estão:');
 
 INSERT
 INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
-VALUES (104, 34, 115, "DISCURSIVA", "Qual a sua opinião sobre as políticas ambientais atuais da empresa?");
+VALUES (104, 34, 115, 'DISCURSIVA', 'Qual a sua opinião sobre as políticas ambientais atuais da empresa?');
 
 INSERT
 INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
-VALUES (105, 35, 113, "LIKERT", "Quão razoáveis são os seus custos:");
-
-
-
--- Faz alguma coisa ae Lucas
+VALUES (105, 35, 113, 'LIKERT', 'Quão razoáveis são os seus custos:');
