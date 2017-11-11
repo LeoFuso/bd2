@@ -49,7 +49,7 @@ id_categoria integer,
 id_pertence_categoria integer,
 ds_nome varchar(30),
 Foreign key (id_pertence_categoria) References tb_bd2_categoria (id_categoria),
-Primary key(id_empresa));
+Primary key(id_categoria));
 
 
 create table tb_bd2_pergunta (
@@ -188,5 +188,27 @@ VALUES (35,103,0, 'Paulo Costa', '77280327044', 'costa@hotmail.com');
 
 
 -- Tabela Pergunta
+
+INSERT
+INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
+VALUES (101, 31, 112, "DISCURSIVA", "Qual é o lucro médio anual?");
+
+INSERT
+INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
+VALUES (102, 32, 113, "DISCURSIVA", "Onde está o maior custo atualmente?");
+
+INSERT
+INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
+VALUES (103, 33, 114, "LIKERT", "Os serviços sociais estão:");
+
+INSERT
+INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
+VALUES (104, 34, 115, "DISCURSIVA", "Qual a sua opinião sobre as políticas ambientais atuais da empresa?");
+
+INSERT
+INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
+VALUES (105, 35, 113, "LIKERT", "Quão razoáveis são os seus custos:");
+
+
 
 -- Faz alguma coisa ae Lucas
