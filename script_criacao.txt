@@ -1,4 +1,8 @@
 
+
+
+--Leonardo Fuso Nuzzo   31500129
+--Lucas Nogueira Tormin 31446140
 -- Drop Tables
 
 DROP TABLE tb_bd2_pergunta_history CASCADE CONSTRAINT;
