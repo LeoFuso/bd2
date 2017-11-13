@@ -243,6 +243,35 @@ INCREMENT BY 1
 MINVALUE 100
 MAXVALUE 100000;
 
+
+
+--- Function 1
+
+CREATE OR REPLACE FUNCTION qtdPerguntas(nomeFuncionario IN VARCHAR)
+RETURN INTEGER
+
+IS
+
+codigo_funcionario INTEGER(10);
+total_perguntas_criadas INTEGER(10);
+
+BEGIN
+
+SELECT id_funcionario INTO codigo_funcionario
+FROM tb_bd2_funcionario
+WHERE(ds_nome = nomeFuncionario);
+
+SELECT COUNT(id_pergunta) INTO total_perguntas_criadas
+FROM tb_bd2_pergunta
+WHERE(id_funcionario = codigo_funcionario);
+
+RETURN total_perguntas_criadas;
+
+SELECT
+
+END qtdPerguntas;
+
+
 --- Trigger Simples
 
 CREATE OR REPLACE TRIGGER newFuncionario
