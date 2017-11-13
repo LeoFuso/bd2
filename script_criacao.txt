@@ -64,6 +64,24 @@ Foreign key (id_categoria) References tb_bd2_categoria (id_categoria),
 Primary key(id_pergunta));
 
 
+create table tb_bd2_pergunta_queue (
+id_pergunta_queue integer,
+data_insert DATE,
+Primary key(id_pergunta_queue));
+
+create table tb_bd2_pergunta_timeline(
+id_pergunta_modified integer,
+data_modified DATE,
+ds_old_desc VARCHAR(255),
+ds_new_desc VARCHAR(255),
+Primary key(id_pergunta_modified));
+
+create table tb_bd2_pergunta_history(
+id_pergunta_excluded integer,
+data_excluded DATE,
+ds_old_desc VARCHAR(255),
+Primary key(id_pergunta_excluded));
+
 -- Inserts
 
 
@@ -210,3 +228,44 @@ VALUES (104, 34, 115, 'DISCURSIVA', 'Qual a sua opinião sobre as políticas amb
 INSERT
 INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
 VALUES (105, 35, 113, 'LIKERT', 'Quão razoáveis são os seus custos:');
+
+
+--- SEQUENCE
+
+CREATE SEQUENCE seq
+START WITH 100
+INCREMENT BY 1
+MINVALUE 100
+MAXVALUE 100000;
+
+
+
+
+--- Trigger
+
+CREATE OR REPLACE TRIGGER crudPergunta
+AFTER
+DELETE OR INSERT OR UPDATE OF ds_corpo_pergunta
+ON tb_bd2_pergunta
+FOR EACH ROW
+
+BEGIN
+
+  IF INSERTING THEN
+
+      INSERT INTO tb_bd2_pergunta_queue(id_pergunta_queue,data_insert)
+      VALUES(:old.id_pergunta, sysdate);
+
+  ELSIF UPDATING THEN
+
+      INSERT INTO tb_bd2_pergunta_timeline(id_timeline,id_pergunta_modified,data_modified,ds_old_desc, ds_new_desc)
+      VALUES(seq.NEXTVAL,:old.id_pergunta, sysdate,:old.ds_corpo_pergunta,:new.ds_corpo_pergunta)
+
+  ELSIF DELETING THEN
+
+      INSERT INTO tb_bd2_pergunta_history(id_pergunta_excluded, data_excluded, ds_old_desc)
+      VALUES(:old.id_pergunta, sysdate,:old.ds_corpo_pergunta)
+
+  ENDIF;
+
+END;
