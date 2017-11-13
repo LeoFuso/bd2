@@ -264,7 +264,7 @@ BEGIN
   SET id_superior_funcionario = vIdSuperior
   WHERE (nomeFuncionario = ds_nome);
 
-END atualizaSuperior;
+END insereSetorEmpresa;
 
 
 --- Function 1
