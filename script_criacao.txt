@@ -309,7 +309,27 @@ SELECT qtdPerguntas('Leonardo Fuso') FROM DUAL;
 
 --- Function 2
 
-CREATE OR REPLACE FUNCTION
+CREATE OR REPLACE FUNCTION nomeEmpresa(idPergunta IN INTEGER)
+RETURN VARCHAR
+
+IS
+
+vnomeEmpresa VARCHAR(60);
+
+BEGIN
+
+SELECT E.ds_nome INTO vnomeEmpresa
+FROM tb_bd2_empresa E INNER JOIN tb_bd2_funcionario F
+ON(E.id_empresa = F.id_empresa)
+INNER JOIN tb_bd2_pergunta P
+ON(F.id_funcionario = P.id_funcionario)
+WHERE(P.id_pergunta = idPergunta);
+
+RETURN vnomeEmpresa;
+END nomeEmpresa;
+
+SELECT nomeEmpresa(101) FROM DUAL;
+
 
 
 --- Trigger Simples
