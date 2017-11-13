@@ -44,6 +44,11 @@ Foreign key (id_empresa) References tb_bd2_empresa (id_empresa),
 Foreign key (id_superior_funcionario) References tb_bd2_funcionario (id_funcionario),
 Primary key(id_funcionario));
 
+create table tb_bd2_funcionario_contratado (
+  id_new_funcionario integer,
+  dt_contratacao DATE,
+  Primary key(id_new_funcionario));
+);
 
 create table tb_bd2_categoria(
 id_categoria integer,
@@ -238,10 +243,22 @@ INCREMENT BY 1
 MINVALUE 100
 MAXVALUE 100000;
 
+--- Trigger Simples
+
+CREATE OR REPLACE TRIGGER newFuncionario
+AFTER
+INSERT
+ON tb_bd2_funcionario
+
+BEGIN
+
+  INSERT INTO tb_bd2_funcionario_contratado(id_new_funcionario,dt_contratacao)
+  VALUES(:old.id_funcionario, sysdate);
+
+END;
 
 
-
---- Trigger
+--- Trigger COMPLEXO
 
 CREATE OR REPLACE TRIGGER crudPergunta
 AFTER
@@ -259,12 +276,12 @@ BEGIN
   ELSIF UPDATING THEN
 
       INSERT INTO tb_bd2_pergunta_timeline(id_timeline,id_pergunta_modified,data_modified,ds_old_desc, ds_new_desc)
-      VALUES(seq.NEXTVAL,:old.id_pergunta, sysdate,:old.ds_corpo_pergunta,:new.ds_corpo_pergunta)
+      VALUES(seq.NEXTVAL,:old.id_pergunta, sysdate,:old.ds_corpo_pergunta,:new.ds_corpo_pergunta);
 
   ELSIF DELETING THEN
 
       INSERT INTO tb_bd2_pergunta_history(id_pergunta_excluded, data_excluded, ds_old_desc)
-      VALUES(:old.id_pergunta, sysdate,:old.ds_corpo_pergunta)
+      VALUES(:old.id_pergunta, sysdate,:old.ds_corpo_pergunta);
 
   ENDIF;
 
