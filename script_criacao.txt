@@ -252,11 +252,15 @@ MAXVALUE 100000;
 CREATE OR REPLACE PROCEDURE insereSetorEmpresa
 (nomeEmpresa IN VARCHAR,
 nomeSetor IN VARCHAR)
+
 IS
+
 vIdEmpresa INTEGER;
 vIdSetor INTEGER;
+
 BEGIN
-  SELECT id_funcionario INTO vIdEmpresa
+
+  SELECT id_empresa INTO vIdEmpresa
   FROM tb_bd2_empresa
   WHERE (nomeEmpresa = ds_nome);
 
@@ -264,11 +268,16 @@ BEGIN
   FROM tb_bd2_setor
   WHERE (nomeSetor = ds_nome_area_atuacao);
 
-  UPDATE tb_bd2_setor_empresa
-  SET id_superior_funcionario = vIdSuperior
-  WHERE (nomeFuncionario = ds_nome);
+  INSERT
+  INTO tb_bd2_setor_empresa (id_setor, id_empresa)
+  VALUES (vIdSetor,vIdEmpresa);
 
 END insereSetorEmpresa;
+
+begin
+insereSetorEmpresa('Adobe','Educacao');
+end;
+
 
 
 --- Function 1
@@ -295,16 +304,13 @@ RETURN total_perguntas_criadas;
 
 END qtdPerguntas;
 
-<<<<<<< HEAD
 SELECT qtdPerguntas('Leonardo Fuso') FROM DUAL;
-=======
-qtdPerguntas('Leonardo Fuso');
+
 
 --- Function 2
 
 CREATE OR REPLACE FUNCTION
 
->>>>>>> fed1af66e1ea62781578608b63ffe94d08715071
 
 --- Trigger Simples
 
