@@ -387,3 +387,16 @@ BEGIN
   END IF;
 
 END;
+
+
+INSERT
+INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
+VALUES (106, 35, 113, 'LIKERT', 'Seus custos são justificáveis:');
+
+UPDATE tb_bd2_pergunta
+SET ds_corpo_pergunta = 'Seus custos são realmente justificáveis:'
+WHERE id_pergunta = 106;
+
+DELETE
+FROM tb_bd2_pergunta
+WHERE id_pergunta = 106;;
