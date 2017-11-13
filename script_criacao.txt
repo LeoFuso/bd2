@@ -245,20 +245,25 @@ MAXVALUE 100000;
 
 --- PROCEDURE
 
-CREATE OR REPLACE PROCEDURE atualizaSuperior
-(nomeFuncionario IN VARCHAR,
-nomeNovoSuperior IN VARCHAR)
+CREATE OR REPLACE PROCEDURE insereSetorEmpresa
+(nomeEmpresa IN VARCHAR,
+nomeSetor IN VARCHAR)
 IS
-vIdSuperior INTEGER;
+vIdEmpresa INTEGER;
+vIdSetor INTEGER;
 BEGIN
-  SELECT id_funcionario INTO vIdSuperior
-  FROM tb_bd2_funcionario
-  WHERE (nomeNovoSuperior = ds_nome);
+  SELECT id_funcionario INTO vIdEmpresa
+  FROM tb_bd2_empresa
+  WHERE (nomeEmpresa = ds_nome);
 
-  UPDATE tb_bd2_funcionario
+  SELECT id_setor INTO vIdSetor
+  FROM tb_bd2_setor
+  WHERE (nomeSetor = ds_nome_area_atuacao);
+
+  UPDATE tb_bd2_setor_empresa
   SET id_superior_funcionario = vIdSuperior
   WHERE (nomeFuncionario = ds_nome);
-  
+
 END atualizaSuperior;
 
 
@@ -289,6 +294,10 @@ SELECT
 END qtdPerguntas;
 
 qtdPerguntas('Leonardo Fuso');
+
+--- Function 2
+
+CREATE OR REPLACE FUNCTION
 
 
 --- Trigger Simples
