@@ -1,0 +1,431 @@
+
+-- Projeto do Lab de BD-II
+
+
+
+-- ETAPA1 - insira AQUI o DROP TABLE, CREATE TABLE e INSERT
+
+-- 3. script de criação do banco de dados, ou seja, DROP TABLE e CREATE TABLE;
+
+-- Drop Tables
+
+DROP TABLE tb_bd2_pergunta_history CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_pergunta_timeline CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_pergunta_queue CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_funcionario_contratado CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_pergunta CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_categoria CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_funcionario CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_setor_empresa CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_setor CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_empresa CASCADE CONSTRAINT;
+
+
+-- Script de criacao do banco
+
+
+create table tb_bd2_empresa (
+id_empresa integer,
+ds_nome varchar(60),
+ds_cnpj varchar(14),
+Primary key(id_empresa));
+
+
+create table tb_bd2_setor (
+id_setor integer,
+ds_nome_area_atuacao varchar(60),
+Primary key(id_setor));
+
+
+create table tb_bd2_setor_empresa(
+id_setor integer,
+id_empresa integer,
+Constraint SETOR_FK Foreign key (id_setor) References tb_bd2_setor (id_setor),
+Constraint EMPRESA_FK Foreign key (id_empresa) References tb_bd2_empresa (id_empresa),
+Constraint tb_PK PRIMARY KEY(id_setor,id_empresa));
+
+
+create table tb_bd2_funcionario (
+id_funcionario integer,
+id_empresa integer,
+id_superior_funcionario integer,
+ds_nome varchar(60),
+ds_cpf varchar(11),
+ds_email varchar(200),
+Foreign key (id_empresa) References tb_bd2_empresa (id_empresa),
+Foreign key (id_superior_funcionario) References tb_bd2_funcionario (id_funcionario),
+Primary key(id_funcionario));
+
+create table tb_bd2_funcionario_contratado (
+  id_new_funcionario integer,
+  dt_contratacao DATE,
+  Primary key(id_new_funcionario));
+
+
+create table tb_bd2_categoria(
+id_categoria integer,
+id_pertence_categoria integer,
+ds_nome varchar(60),
+Foreign key (id_pertence_categoria) References tb_bd2_categoria (id_categoria),
+Primary key(id_categoria));
+
+
+create table tb_bd2_pergunta (
+id_pergunta integer,
+id_funcionario integer,
+id_categoria integer,
+ds_tipo_pergunta varchar(60),
+ds_corpo_pergunta varchar(255),
+Foreign key (id_funcionario) References tb_bd2_funcionario (id_funcionario),
+Foreign key (id_categoria) References tb_bd2_categoria (id_categoria),
+Primary key(id_pergunta));
+
+
+create table tb_bd2_pergunta_queue (
+id_pergunta_queue integer,
+data_insert DATE,
+Primary key(id_pergunta_queue));
+
+create table tb_bd2_pergunta_timeline(
+id_pergunta_modified integer,
+data_modified DATE,
+ds_old_desc VARCHAR(255),
+ds_new_desc VARCHAR(255),
+Primary key(id_pergunta_modified));
+
+create table tb_bd2_pergunta_history(
+id_pergunta_excluded integer,
+data_excluded DATE,
+ds_old_desc VARCHAR(255),
+Primary key(id_pergunta_excluded));
+
+
+-- 4. inserção de dados - INSERT - nas tabelas criadas do banco de dados
+
+-- Inserts
+
+
+
+-- Tabela Setores
+
+INSERT
+INTO tb_bd2_setor (id_setor, ds_nome_area_atuacao)
+VALUES (101, 'Agronegocio');
+
+INSERT
+INTO tb_bd2_setor (id_setor, ds_nome_area_atuacao)
+VALUES (102, 'Comercio');
+
+INSERT
+INTO tb_bd2_setor (id_setor, ds_nome_area_atuacao)
+VALUES (103, 'Investimento');
+
+INSERT
+INTO tb_bd2_setor (id_setor, ds_nome_area_atuacao)
+VALUES (104, 'Educacao');
+
+INSERT
+INTO tb_bd2_setor (id_setor, ds_nome_area_atuacao)
+VALUES (105, 'Exportacao');
+
+
+
+-- Tabela Empresas
+
+INSERT
+INTO tb_bd2_empresa (id_empresa, ds_nome, ds_cnpj)
+VALUES (1011, 'SilverLight','82684742000148');
+
+INSERT
+INTO tb_bd2_empresa (id_empresa, ds_nome, ds_cnpj)
+VALUES (1012, 'Adobe','35186316000102');
+
+INSERT
+INTO tb_bd2_empresa (id_empresa, ds_nome, ds_cnpj)
+VALUES (1013, 'MicroSystem','10170121000135');
+
+INSERT
+INTO tb_bd2_empresa (id_empresa, ds_nome, ds_cnpj)
+VALUES (1014, 'MoonInc  ','04271513000198');
+
+INSERT
+INTO tb_bd2_empresa (id_empresa, ds_nome, ds_cnpj)
+VALUES (1015, 'StepFoward  ','66450106000103');
+
+
+
+-- Tabela Setor_Empresa
+
+INSERT
+INTO tb_bd2_setor_empresa (id_setor, id_empresa)
+VALUES (103,1011);
+
+INSERT
+INTO tb_bd2_setor_empresa (id_setor, id_empresa)
+VALUES (105,1012);
+
+INSERT
+INTO tb_bd2_setor_empresa (id_setor, id_empresa)
+VALUES (104,1013);
+
+INSERT
+INTO tb_bd2_setor_empresa (id_setor, id_empresa)
+VALUES (103,1014);
+
+INSERT
+INTO tb_bd2_setor_empresa (id_setor, id_empresa)
+VALUES (105,1015);
+
+
+
+-- Tabela Categoria
+
+INSERT
+INTO tb_bd2_categoria (id_categoria, ds_nome)
+VALUES (111,'Economia');
+
+INSERT
+INTO tb_bd2_categoria (id_categoria, id_pertence_categoria, ds_nome)
+VALUES (112,111,'Lucros');
+
+INSERT
+INTO tb_bd2_categoria (id_categoria, id_pertence_categoria, ds_nome)
+VALUES (113,111,'Custos');
+
+INSERT
+INTO tb_bd2_categoria (id_categoria, ds_nome)
+VALUES (114,'Social');
+
+INSERT
+INTO tb_bd2_categoria (id_categoria, ds_nome)
+VALUES (115,'Ambiental');
+
+
+
+-- Tabela Funcionario
+
+INSERT
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, ds_nome, ds_cpf, ds_email)
+VALUES (31,1011, 'Leonardo Fuso', '55531155077', 'leonardo@hotmail.com');
+
+INSERT
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, id_superior_funcionario, ds_nome, ds_cpf, ds_email)
+VALUES (32,1011,31, 'Lucas Tormin', '70630113084', 'lucas@hotmail.com');
+
+INSERT
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, ds_nome, ds_cpf, ds_email)
+VALUES (33,1012,'Rodrigo Lima', '99796378035', 'rrl@hotmail.com');
+
+INSERT
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, id_superior_funcionario, ds_nome, ds_cpf, ds_email)
+VALUES (34,1012,33, 'João Silva', '43545036030', 'jsilva@hotmail.com');
+
+INSERT
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, ds_nome, ds_cpf, ds_email)
+VALUES (35,1013,'Paulo Costa', '77280327044', 'costa@hotmail.com');
+
+
+
+
+-- Tabela Pergunta
+
+INSERT
+INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
+VALUES (101, 31, 112, 'DISCURSIVA', 'Qual é o lucro médio anual?');
+
+INSERT
+INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
+VALUES (102, 32, 113, 'DISCURSIVA', 'Onde está o maior custo atualmente?');
+
+INSERT
+INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
+VALUES (103, 33, 114, 'LIKERT', 'Os serviços sociais estão:');
+
+INSERT
+INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
+VALUES (104, 34, 115, 'DISCURSIVA', 'Qual a sua opinião sobre as políticas ambientais atuais da empresa?');
+
+INSERT
+INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
+VALUES (105, 35, 113, 'LIKERT', 'Quão razoáveis são os seus custos:');
+
+
+
+-- ETAPA 2 - ELABORAÇÃO E IMPLEMENTAÇÃO DE UMA PROCEDURE
+-- 1. Elaborar e resolver UMA procedure contendo, pelo menos, DOIS argumentos e TRÊS tabelas. Coloque o comando para
+executar a procedure.
+
+--- PROCEDURE
+
+CREATE OR REPLACE PROCEDURE insereSetorEmpresa
+(nomeEmpresa IN VARCHAR,
+nomeSetor IN VARCHAR)
+
+IS
+
+vIdEmpresa INTEGER;
+vIdSetor INTEGER;
+
+BEGIN
+
+  SELECT id_empresa INTO vIdEmpresa
+  FROM tb_bd2_empresa
+  WHERE (nomeEmpresa = ds_nome);
+
+  SELECT id_setor INTO vIdSetor
+  FROM tb_bd2_setor
+  WHERE (nomeSetor = ds_nome_area_atuacao);
+
+  INSERT
+  INTO tb_bd2_setor_empresa (id_setor, id_empresa)
+  VALUES (vIdSetor,vIdEmpresa);
+
+END insereSetorEmpresa;
+
+begin
+insereSetorEmpresa('Adobe','Educacao');
+end;
+
+
+
+
+-- ETAPA3: ELABORAÇÃO E IMPLEMENTAÇÃO DE DUAS FUNCTIONS
+-- 1. Elaborar e resolver DUAS functions contendo, pelo menos, UM argumento e DUAS tabelas;
+
+
+--- Function 1
+
+CREATE OR REPLACE FUNCTION qtdPerguntas(nomeFuncionario IN VARCHAR)
+RETURN INTEGER
+
+IS
+
+codigo_funcionario INTEGER(10);
+total_perguntas_criadas INTEGER(10);
+
+BEGIN
+
+SELECT id_funcionario INTO codigo_funcionario
+FROM tb_bd2_funcionario
+WHERE(ds_nome = nomeFuncionario);
+
+SELECT COUNT(id_pergunta) INTO total_perguntas_criadas
+FROM tb_bd2_pergunta
+WHERE(id_funcionario = codigo_funcionario);
+
+RETURN total_perguntas_criadas;
+
+END qtdPerguntas;
+
+SELECT qtdPerguntas('Leonardo Fuso') FROM DUAL;
+
+
+--- Function 2
+
+CREATE OR REPLACE FUNCTION nomeEmpresa(idPergunta IN INTEGER)
+RETURN VARCHAR
+
+IS
+
+vnomeEmpresa VARCHAR(60);
+
+BEGIN
+
+SELECT E.ds_nome INTO vnomeEmpresa
+FROM tb_bd2_empresa E INNER JOIN tb_bd2_funcionario F
+ON(E.id_empresa = F.id_empresa)
+INNER JOIN tb_bd2_pergunta P
+ON(F.id_funcionario = P.id_funcionario)
+WHERE(P.id_pergunta = idPergunta);
+
+RETURN vnomeEmpresa;
+END nomeEmpresa;
+
+SELECT nomeEmpresa(101) FROM DUAL;
+
+
+
+
+
+-- ETAPA4: ELABORAÇÃO E IMPLEMENTAÇÃO DE DOIS TRIGGERS
+-- 1. Elaborar e resolver DOIS triggers sendo que pelo menos um trigger deverá ser disparado por dois ou três eventos
+(INSERT, UPDATE e DELETE), e, para cada evento,  deverá ser feito uma ação diferente. É necessário também colocar
+os comandos que você utilizou para testar os triggers.
+
+--- SEQUENCE
+
+CREATE SEQUENCE seq
+START WITH 100
+INCREMENT BY 1
+MINVALUE 100
+MAXVALUE 100000;
+
+--- Trigger Simples
+
+CREATE OR REPLACE TRIGGER newFuncionario
+AFTER
+INSERT
+ON tb_bd2_funcionario
+FOR EACH ROW
+
+BEGIN
+
+  INSERT INTO tb_bd2_funcionario_contratado(id_new_funcionario,dt_contratacao)
+  VALUES(:new.id_funcionario, sysdate);
+
+END;
+
+INSERT
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, ds_nome, ds_cpf, ds_email)
+VALUES (300,1011, 'Leandro Rosa', '55534155077', 'leandro@hotmail.com');
+
+SELECT ds_nome
+FROM tb_bd2_funcionario
+WHERE(id_funcionario = 300);
+
+
+--- Trigger COMPLEXO
+
+CREATE OR REPLACE TRIGGER crudPergunta
+AFTER
+DELETE OR INSERT OR UPDATE OF ds_corpo_pergunta
+ON tb_bd2_pergunta
+FOR EACH ROW
+
+BEGIN
+
+  IF INSERTING THEN
+
+      INSERT
+      INTO tb_bd2_pergunta_queue(id_pergunta_queue,data_insert)
+      VALUES(:new.id_pergunta, sysdate);
+
+  ELSIF UPDATING THEN
+
+      INSERT
+      INTO tb_bd2_pergunta_timeline(id_timeline,id_pergunta_modified,data_modified,ds_old_desc, ds_new_desc)
+      VALUES(seq.NEXTVAL,:old.id_pergunta, sysdate,:old.ds_corpo_pergunta,:new.ds_corpo_pergunta);
+
+  ELSIF DELETING THEN
+
+      INSERT
+      INTO tb_bd2_pergunta_history(id_pergunta_excluded, data_excluded, ds_old_desc)
+      VALUES(:old.id_pergunta, sysdate,:old.ds_corpo_pergunta);
+
+  END IF;
+
+END;
+
+
+INSERT
+INTO tb_bd2_pergunta (id_pergunta, id_funcionario, id_categoria, ds_tipo_pergunta, ds_corpo_pergunta)
+VALUES (106, 35, 113, 'LIKERT', 'Seus custos são justificáveis:');
+
+UPDATE tb_bd2_pergunta
+SET ds_corpo_pergunta = 'Seus custos são realmente justificáveis:'
+WHERE id_pergunta = 106;
+
+DELETE
+FROM tb_bd2_pergunta
+WHERE id_pergunta = 106;;
+
