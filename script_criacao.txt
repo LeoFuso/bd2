@@ -247,6 +247,28 @@ INCREMENT BY 1
 MINVALUE 100
 MAXVALUE 100000;
 
+--- PROCEDURE
+
+CREATE OR REPLACE PROCEDURE insereSetorEmpresa
+(nomeEmpresa IN VARCHAR,
+nomeSetor IN VARCHAR)
+IS
+vIdEmpresa INTEGER;
+vIdSetor INTEGER;
+BEGIN
+  SELECT id_funcionario INTO vIdEmpresa
+  FROM tb_bd2_empresa
+  WHERE (nomeEmpresa = ds_nome);
+
+  SELECT id_setor INTO vIdSetor
+  FROM tb_bd2_setor
+  WHERE (nomeSetor = ds_nome_area_atuacao);
+
+  UPDATE tb_bd2_setor_empresa
+  SET id_superior_funcionario = vIdSuperior
+  WHERE (nomeFuncionario = ds_nome);
+
+END insereSetorEmpresa;
 
 
 --- Function 1
@@ -273,7 +295,16 @@ RETURN total_perguntas_criadas;
 
 END qtdPerguntas;
 
+<<<<<<< HEAD
 SELECT qtdPerguntas('Leonardo Fuso') FROM DUAL;
+=======
+qtdPerguntas('Leonardo Fuso');
+
+--- Function 2
+
+CREATE OR REPLACE FUNCTION
+
+>>>>>>> fed1af66e1ea62781578608b63ffe94d08715071
 
 --- Trigger Simples
 
