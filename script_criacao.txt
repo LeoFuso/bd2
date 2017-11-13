@@ -347,6 +347,14 @@ BEGIN
 
 END;
 
+INSERT
+INTO tb_bd2_funcionario (id_funcionario, id_empresa, ds_nome, ds_cpf, ds_email)
+VALUES (300,1011, 'Leandro Rosa', '55534155077', 'leandro@hotmail.com');
+
+SELECT ds_nome
+FROM tb_bd2_funcionario
+WHERE(id_funcionario = 300);
+
 
 --- Trigger COMPLEXO
 
