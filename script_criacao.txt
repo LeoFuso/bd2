@@ -243,6 +243,23 @@ INCREMENT BY 1
 MINVALUE 100
 MAXVALUE 100000;
 
+--- PROCEDURE
+
+CREATE OR REPLACE PROCEDURE atualizaSuperior
+(nomeFuncionario IN VARCHAR,
+nomeNovoSuperior IN VARCHAR)
+IS
+vIdSuperior INTEGER;
+BEGIN
+  SELECT id_funcionario INTO vIdSuperior
+  FROM tb_bd2_funcionario
+  WHERE (nomeNovoSuperior = ds_nome);
+
+  UPDATE tb_bd2_funcionario
+  SET id_superior_funcionario = vIdSuperior
+  WHERE (nomeFuncionario = ds_nome);
+  
+END atualizaSuperior;
 
 
 --- Function 1
