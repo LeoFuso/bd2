@@ -1,6 +1,10 @@
 
 -- Drop Tables
 
+DROP TABLE tb_bd2_pergunta_history CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_pergunta_timeline CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_pergunta_queue CASCADE CONSTRAINT;
+DROP TABLE tb_bd2_funcionario_contratado CASCADE CONSTRAINT;
 DROP TABLE tb_bd2_pergunta CASCADE CONSTRAINT;
 DROP TABLE tb_bd2_categoria CASCADE CONSTRAINT;
 DROP TABLE tb_bd2_funcionario CASCADE CONSTRAINT;
@@ -48,7 +52,7 @@ create table tb_bd2_funcionario_contratado (
   id_new_funcionario integer,
   dt_contratacao DATE,
   Primary key(id_new_funcionario));
-);
+
 
 create table tb_bd2_categoria(
 id_categoria integer,
@@ -267,12 +271,9 @@ WHERE(id_funcionario = codigo_funcionario);
 
 RETURN total_perguntas_criadas;
 
-SELECT
-
 END qtdPerguntas;
 
-qtdPerguntas('Leonardo Fuso');
-
+SELECT qtdPerguntas('Leonardo Fuso') FROM DUAL;
 
 --- Trigger Simples
 
@@ -280,11 +281,12 @@ CREATE OR REPLACE TRIGGER newFuncionario
 AFTER
 INSERT
 ON tb_bd2_funcionario
+FOR EACH ROW
 
 BEGIN
 
   INSERT INTO tb_bd2_funcionario_contratado(id_new_funcionario,dt_contratacao)
-  VALUES(:old.id_funcionario, sysdate);
+  VALUES(:new.id_funcionario, sysdate);
 
 END;
 
@@ -301,19 +303,22 @@ BEGIN
 
   IF INSERTING THEN
 
-      INSERT INTO tb_bd2_pergunta_queue(id_pergunta_queue,data_insert)
-      VALUES(:old.id_pergunta, sysdate);
+      INSERT
+      INTO tb_bd2_pergunta_queue(id_pergunta_queue,data_insert)
+      VALUES(:new.id_pergunta, sysdate);
 
   ELSIF UPDATING THEN
 
-      INSERT INTO tb_bd2_pergunta_timeline(id_timeline,id_pergunta_modified,data_modified,ds_old_desc, ds_new_desc)
+      INSERT
+      INTO tb_bd2_pergunta_timeline(id_timeline,id_pergunta_modified,data_modified,ds_old_desc, ds_new_desc)
       VALUES(seq.NEXTVAL,:old.id_pergunta, sysdate,:old.ds_corpo_pergunta,:new.ds_corpo_pergunta);
 
   ELSIF DELETING THEN
 
-      INSERT INTO tb_bd2_pergunta_history(id_pergunta_excluded, data_excluded, ds_old_desc)
+      INSERT
+      INTO tb_bd2_pergunta_history(id_pergunta_excluded, data_excluded, ds_old_desc)
       VALUES(:old.id_pergunta, sysdate,:old.ds_corpo_pergunta);
 
-  ENDIF;
+  END IF;
 
 END;
